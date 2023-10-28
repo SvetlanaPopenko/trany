@@ -27,7 +27,18 @@ function onClick(evt) {
   const { target } = evt;
   if (!target.classList.contains("js-item") || target.textContent) {
     return;
-  }
+    }
+    const  id = Number(target.dataset);
+    if (player === 'x') {
+        historyx.push(id);
+    } else {
+        history0.push(id);
+    }
+    isWinner(historyx);
   target.textContent = player;
   player = player === "x" ? "0" : "x";
+}
+
+function isWinner(arr) {
+    return wins.some(item=>console.log(item))
 }
