@@ -12,8 +12,8 @@ const wins = [
 ];
 let player = "x";
 let markup = "";
-const historyx = [];
-const history0 = [];
+let historyx = [];
+let history0 = [];
 
 for (let i = 1; i < 10; i += 1) {
   markup += `<div class="item js-item" data-id=${i}></div>`;
@@ -28,17 +28,24 @@ function onClick(evt) {
   if (!target.classList.contains("js-item") || target.textContent) {
     return;
     }
-    const  id = Number(target.dataset);
+    let result = false;
+    const  id = Number(target.dataset.id);
     if (player === 'x') {
         historyx.push(id);
+        result = isWinner(historyx);
     } else {
         history0.push(id);
+        result = isWinner(history0);
     }
-    isWinner(historyx);
-  target.textContent = player;
+     target.textContent = player;
+    if (result) {
+        console.log(`Winner ${player}`);
+        return;
+  }
+ 
   player = player === "x" ? "0" : "x";
 }
 
 function isWinner(arr) {
-    return wins.some(item=>console.log(item))
+    return wins.some(item => item.every(id => arr.includes(id)));
 }
