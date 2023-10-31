@@ -11,16 +11,18 @@ const wins = [
   [3, 5, 7],
 ];
 let player = "x";
-let markup = "";
 let historyx = [];
 let history0 = [];
 
-for (let i = 1; i < 10; i += 1) {
+function createMarkup() {
+    let markup = "";
+    for (let i = 1; i < 10; i += 1) {
   markup += `<div class="item js-item" data-id=${i}></div>`;
 }
 
 container.innerHTML = markup;
-
+}
+createMarkup();
 container.addEventListener("click", onClick);
 
 function onClick(evt) {
@@ -40,6 +42,7 @@ function onClick(evt) {
      target.textContent = player;
     if (result) {
         console.log(`Winner ${player}`);
+        resetGame();
         return;
   }
  
@@ -48,4 +51,11 @@ function onClick(evt) {
 
 function isWinner(arr) {
     return wins.some(item => item.every(id => arr.includes(id)));
+}
+
+function resetGame() {
+    createMarkup();
+    historyx = [];
+    history0 = [];
+    player='x';
 }
