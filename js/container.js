@@ -31,7 +31,10 @@ function onClick(evt) {
     return;
     }
     let result = false;
-    const  id = Number(target.dataset.id);
+
+    const isEndGame = history0.length + historyx.length === 9;
+    const id = Number(target.dataset.id);
+    
     if (player === 'x') {
         historyx.push(id);
         result = isWinner(historyx);
@@ -39,9 +42,14 @@ function onClick(evt) {
         history0.push(id);
         result = isWinner(history0);
     }
-     target.textContent = player;
+    target.textContent = player;
+   
     if (result) {
         console.log(`Winner ${player}`);
+        resetGame();
+        return;
+    } else if (isEndGame) {
+        console.log(`Try again`);
         resetGame();
         return;
   }
