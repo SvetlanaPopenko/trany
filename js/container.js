@@ -15,12 +15,12 @@ let historyx = [];
 let history0 = [];
 
 function createMarkup() {
-    let markup = "";
-    for (let i = 1; i < 10; i += 1) {
-  markup += `<div class="item js-item" data-id=${i}></div>`;
-}
+  let markup = "";
+  for (let i = 1; i < 10; i += 1) {
+    markup += `<div class="item js-item" data-id="${i}"></div>`;
+  }
 
-container.innerHTML = markup;
+  container.innerHTML = markup;
 }
 createMarkup();
 container.addEventListener("click", onClick);
@@ -29,41 +29,40 @@ function onClick(evt) {
   const { target } = evt;
   if (!target.classList.contains("js-item") || target.textContent) {
     return;
-    }
-    let result = false;
-
-    const isEndGame = history0.length + historyx.length === 9;
-    const id = Number(target.dataset.id);
-    
-    if (player === 'x') {
-        historyx.push(id);
-        result = isWinner(historyx);
-    } else {
-        history0.push(id);
-        result = isWinner(history0);
-    }
-    target.textContent = player;
-   
-    if (result) {
-        console.log(`Winner ${player}`);
-        resetGame();
-        return;
-    } else if (isEndGame) {
-        console.log(`Try again`);
-        resetGame();
-        return;
   }
- 
+  let result = false;
+
+    const id = Number(target.dataset.id);
+
+  if (player === "x") {
+    historyx.push(id);
+    result = isWinner(historyx);
+  } else {
+    history0.push(id);
+    result = isWinner(history0);
+  }
+  target.textContent = player;
+
+  if (result) {
+    console.log(`Winner ${player}`);
+    resetGame();
+    return;
+  } else if (history0.length + historyx.length === 9) {
+    console.log(`Try again`);
+    resetGame();
+    return;
+  }
+
   player = player === "x" ? "0" : "x";
 }
 
 function isWinner(arr) {
-    return wins.some(item => item.every(id => arr.includes(id)));
+  return wins.some((item) => item.every((id) => arr.includes(id)));
 }
 
 function resetGame() {
-    createMarkup();
-    historyx = [];
-    history0 = [];
-    player='x';
+  createMarkup();
+  historyx = [];
+  history0 = [];
+  player = "x";
 }
